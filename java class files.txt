@@ -1,0 +1,714 @@
+                                                                                      JAVA CLASS CODES:
+                                                                                      *****************
+    package com.example.demo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class Admin {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private  String user;
+	private String password;
+
+}
+
+**********************************
+
+
+ package com.example.demo;
+
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class AdminController {
+
+	@Autowired
+	AdminRepo repo;
+
+	Logger log = Logger.getAnonymousLogger();
+
+	@RequestMapping("/admin")
+	public ModelAndView login(HttpServletRequest req , HttpServletResponse res ) {
+
+		ModelAndView mv = new ModelAndView();
+
+
+		String user = req.getParameter("user");
+		String password = req.getParameter("password");
+
+		log.info("Value is set");
+
+		if(repo.findbyname(user)!=null) {
+
+			log.info("validation of the user is successful");
+
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+
+			mv.setViewName("AdminPannel.jsp"); 
+
+
+		}
+
+		else {
+
+			log.info("Password is wrong");
+			mv.setViewName("userwrongpassword.jsp"); 
+
+		}
+
+	return mv;
+	}
+
+
+
+//	@ResponseBody
+//	@RequestMapping("/logout")
+//	public String logout(HttpServletRequest req , HttpServletResponse res ) {
+//		
+//		HttpSession session = req.getSession();
+//		session.invalidate();
+//		
+//		return "LogOut Success"; 
+//	}
+
+
+
+
+}
+
+*********************************
+  
+ package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+public interface AdminRepo extends JpaRepository<Admin, Integer> {
+
+
+	@Query("select admin from Admin admin where admin.user=?1")
+	public Admin findbyname(String user);
+}
+ 
+****************************
+ 
+
+package com.example.demo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GeneratorType;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class Buy {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String name;
+	private String address;
+	private String model;
+	private String status;
+	private String cardname;
+	private String ammount;
+	private String cardnumber;
+	private String ccv;
+	private String size;
+
+}
+
+***********************************
+
+package com.example.demo;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class BuyController {
+
+
+	@Autowired
+	BuyDao dao;
+
+	@RequestMapping("/runningbuy")
+	public ModelAndView buy(HttpServletRequest req, HttpServletResponse res) {
+
+		ModelAndView mv = new ModelAndView();
+		Buy y = new Buy();
+
+		y.setName(req.getParameter("name"));
+		y.setAddress(req.getParameter("address"));
+		y.setModel(req.getParameter("model"));
+		y.setSize(req.getParameter("size"));
+		y.setStatus(req.getParameter("status"));
+		y.setCardname(req.getParameter("cardname"));
+		y.setAmmount(req.getParameter("ammount"));
+		y.setCardnumber(req.getParameter("cardnumber"));
+		y.setCcv(req.getParameter("ccv"));
+
+		Buy yy = dao.buy(y);
+
+		if(yy!=null) {
+			mv.setViewName("buyseccuss.jsp");
+		}
+
+		return mv;
+
+	}
+
+
+	@RequestMapping("buyall")
+	public ModelAndView buyall(HttpServletRequest req,HttpServletResponse res) {
+		ModelAndView mv=new ModelAndView();
+		List<Buy> list=dao.buyall();
+		mv.setViewName("BuyDisplay.jsp");
+		mv.addObject("list", list);
+		return mv;
+
+
+	}
+}
+
+********************************
+
+
+package com.example.demo;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BuyDao {
+
+	@Autowired
+	BuyRepo repo;
+
+	public Buy buy(Buy y) {
+		return repo.save(y);
+	}
+
+
+	public List<Buy> buyall(){
+		return repo.findAll();
+	}
+
+}
+
+***************************
+
+package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BuyRepo  extends JpaRepository<Buy, Integer>{
+
+}
+
+************************************
+
+package com.example.demo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class category {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String pname;
+
+}
+
+**********************************
+
+package com.example.demo;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class CategoryController {
+
+	@Autowired
+	CategoryDao dao;
+
+	@RequestMapping("/add")
+	public ModelAndView insertcategory(HttpServletRequest req, HttpServletResponse res) {
+
+		ModelAndView mv = new ModelAndView();
+		category c = new category();
+		c.setPname(req.getParameter("pname"));
+
+		category cc = dao.insertcategory(c);
+
+		if(cc!=null) {
+			mv.setViewName("insertedCategory.jsp");
+		}
+
+		return mv;
+
+	}
+
+
+
+@RequestMapping("catall")
+public ModelAndView getall(HttpServletRequest req,HttpServletResponse res) {
+	ModelAndView mv=new ModelAndView();
+	List<category> list=dao.catall();
+	mv.setViewName("DisplayCategory.jsp");
+	mv.addObject("list", list);
+	return mv;
+
+
+}
+
+@RequestMapping("/update")
+public ModelAndView update(HttpServletRequest req, HttpServletResponse res) {
+
+	ModelAndView mv = new ModelAndView();
+	category c = new category();
+	c.setId(Integer.parseInt(req.getParameter("id")));
+	c.setPname(req.getParameter("pname"));
+
+	category cc = dao.insertcategory(c);
+
+	if(cc!=null) {
+		mv.setViewName("insertedCategory.jsp");
+	}
+
+	return mv;
+
+}
+
+
+
+@RequestMapping("/deleteByid")
+public ModelAndView deleteByid(HttpServletRequest req, HttpServletResponse res) {
+
+	ModelAndView mv = new ModelAndView();
+	category c = new category();
+	c.setId(Integer.parseInt(req.getParameter("id")));
+	category cc = dao.deleteByid(c);
+
+	if(cc!=null) {
+		mv.setViewName("insertedCategory.jsp");
+	}
+
+	return mv;
+
+}
+
+
+}
+
+***********************************
+
+ package com.example.demo;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Service
+public class CategoryDao {
+
+	@Autowired
+	categoryrepo repo;
+
+	public category insertcategory(category c) {
+		return repo.save(c);
+	}
+
+	public List<category> catall(){
+		return repo.findAll();
+	}
+
+	public category update(category c) {
+		category cc=repo.findById(c.getId()).orElse(null);
+		cc.setId(c.getId());
+		cc.setPname(c.getPname());
+		return repo.save(c);
+	}
+
+	@RequestMapping("/deleteByid")
+	public category deleteByid(category c) {
+		repo.delete(c);
+		return c;
+	}
+}
+
+***********************************************
+
+ package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface categoryrepo extends JpaRepository<category, Integer>{
+
+}
+
+************************************
+
+
+package com.example.demo;
+import java.io.File;
+import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class product {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String name;
+	private String price;
+	private String category;
+	private String  model;
+
+
+
+}
+
+*******************************
+
+
+package com.example.demo;
+import java.*;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class productcontroller {
+
+	@Autowired
+	productdao dao;
+
+	@RequestMapping("/insert")
+	public ModelAndView insert(HttpServletRequest req,HttpServletResponse res) {
+		ModelAndView mv=new ModelAndView();
+		product p=new product();
+		p.setName(req.getParameter("name"));
+		p.setPrice(req.getParameter("price"));
+		p.setCategory(req.getParameter("category"));
+		p.setModel(req.getParameter("model"));
+
+		product pp=dao.insert(p);
+		if(pp!=null) {
+			mv.setViewName("status.jsp");
+		}
+		return mv;
+
+	}
+
+
+@RequestMapping("getall")
+public ModelAndView getall(HttpServletRequest req,HttpServletResponse res) {
+	ModelAndView mv=new ModelAndView();
+	List<product> list=dao.getall();
+	mv.setViewName("display.jsp");
+	mv.addObject("list", list);
+	return mv;
+
+
+}
+
+}
+
+***************************************
+
+
+package com.example.demo;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class productdao {
+
+	@Autowired
+	productrepo repo;
+
+	//insert
+		public product insert(product s) {
+			return repo.save(s);
+		}
+
+		//retrive all the objects
+		public List<product> getall(){
+			return repo.findAll();
+		}
+
+
+}
+
+************************************
+
+
+package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface productrepo extends JpaRepository<product, Integer> {
+
+}
+
+***************************************
+
+
+package com.example.demo;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class User {
+
+	@Id
+	private String suser;
+	private String spassword;
+	private String semail;
+
+}
+
+******************************************
+
+
+package com.example.demo;
+
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class UserController {
+
+	@Autowired
+	UserRepo repo;
+
+	@Autowired
+	Userdao dao;
+
+	Logger log = Logger.getAnonymousLogger();
+
+	@RequestMapping("/login")
+	public ModelAndView login(HttpServletRequest req , HttpServletResponse res ) {
+
+		ModelAndView mv = new ModelAndView();
+
+
+		String suser = req.getParameter("suser");
+		String spassword = req.getParameter("spassword");
+
+		log.info("Value is set");
+
+		if(repo.findbyname(suser)!=null) {
+
+			log.info("validation of the user is successful");
+
+			HttpSession session = req.getSession();
+			session.setAttribute("suser", suser);
+
+			mv.setViewName("displayRegister.jsp"); 
+
+
+		}
+
+		else {
+
+			log.info("Password is wrong");
+			mv.setViewName("userwrongpassword.jsp"); 
+
+		}
+
+	return mv;
+	}
+
+	RestTemplate rest=new RestTemplate();
+	@ResponseBody
+	@RequestMapping("/register")
+	public String register(HttpServletRequest req , HttpServletResponse res ) {
+
+		String suser = req.getParameter("suser");
+		String spassword = req.getParameter("spassword");  
+		String semail = req.getParameter("semail");
+
+		String url = "http://localhost:8081/register-user/"+suser+"/"+spassword+"/"+semail;
+
+		rest.getForObject(url, String.class);
+
+		return "success";
+
+
+	}
+
+	@ResponseBody
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req , HttpServletResponse res ) {
+
+		HttpSession session = req.getSession();
+		session.invalidate();
+
+		return "LogOut Success"; 
+	}
+
+
+
+
+@RequestMapping("alluser")
+public ModelAndView getall(HttpServletRequest req,HttpServletResponse res) {
+	ModelAndView mv=new ModelAndView();
+	List<User> list=dao.alluser();
+	mv.setViewName("AllUsers.jsp");
+	mv.addObject("list", list);
+	return mv;
+
+
+}
+
+
+
+	RestTemplate rest1=new RestTemplate();
+	@ResponseBody
+	@RequestMapping("/forget")
+	public String forget(HttpServletRequest req , HttpServletResponse res ) {
+
+		String suser = req.getParameter("suser");
+		String spassword = req.getParameter("spassword");  
+		String semail = req.getParameter("semail");
+
+		String url = "http://localhost:8081/register-user/"+suser+"/"+spassword+"/"+semail;
+
+		rest.getForObject(url, String.class);
+
+		return "success";
+
+
+	}
+
+
+}
+
+*******************************
+
+
+package com.example.demo;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Userdao {
+
+	@Autowired
+	UserRepo repo;
+
+	public List<User> alluser(){
+		return repo.findAll();
+	}
+
+}
+
+**********************************
+
+
+
+package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+public interface UserRepo extends JpaRepository<User, String> {
+
+	@Query("select user from User user where user.suser=?1")
+	public User findbyname(String suser);
+
+}
+
+******************************************
