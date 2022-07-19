@@ -1,0 +1,923 @@
+                                                                   JSP WEB CODES
+                                                                   *************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="#E6F9DE">
+<center>
+<h1>Sporty Shoes</h1>
+<br>
+<h2>Select Category to Browse</h2>
+<a href="running.jsp">Running Shoes</a> <br><br>
+<a href="walking.jsp">Walking Shoes</a> <br><br>
+<a href="gym.jsp">Gym Shoes</a> <br><br>
+<a href="style.jsp">Stylish Shoes</a> <br><br>
+</center>
+</body>
+</html> 
+*************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login page of Admin</title>
+</head>
+<body>
+<center>
+<h1>Admin Login Pannel</h1>
+<form action="admin">
+Username <input type="text" name="user" required><br> <br>
+Password<input type="password" name="password" required><br> <br>
+<input type="submit" value="login">
+
+</form>
+</center>
+</body>
+</html> 
+
+***************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>Admin Pannel</h1>
+<a href="insert.jsp">Add Product</a> <br><br>
+<a href="status.jsp">View Product</a> <br><br>
+<a href="BuyGetAll.jsp">View All Orders</a> <br><br>
+<a href="UserGetAll.jsp">View All Users</a>
+</center>
+</body>
+</html> 
+
+***************************************************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="#FAD2B7">
+<center>
+<h1>Add New Product Category</h1>
+<form action="add">
+Category Name <input type="text" name="pname">
+<input type="submit">
+
+</form>
+</center>
+</body>
+</html>
+
+********************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+    <%@ page import="java.util.*" %>
+    <%@ page import="com.example.demo.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<%
+List<User> u=(List<User>)request.getAttribute("list");
+%>
+
+<table border="1">
+<tr><th>User</th><th>Password</th><th>Email</th></tr>
+<%for(User uu:u){ %>
+<tr> <td><%=uu.getSuser() %></td>  <td><%=uu.getSpassword() %></td>   <td><%=uu.getSemail() %></td> </tr>
+
+<%} %>
+</table>
+
+
+</center>
+</body>
+</html>
+
+*******************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+    <%@ page import="java.util.*" %>
+    <%@ page import="com.example.demo.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<%
+List<Buy> y=(List<Buy>)request.getAttribute("list");
+%>
+
+<table border="1">
+<tr><th>Buy ID</th><th>Name</th><th>Buy Address</th><th>Shoes Model</th><th>Status</th> <th>Card's Holder Name</th> <th>Total Amount</th> <th>CCV</th> <th>Size</th></tr>
+<%for(Buy yy:y){ %>
+<tr> <td><%=yy.getId() %></td>  <td><%=yy.getName() %></td>   <td><%=yy.getAddress()%></td><td><%=yy.getModel() %></td><td><%=yy.getStatus() %></td><td><%=yy.getCardname() %></td>  <td><%=yy.getAmmount() %></td> <td><%=yy.getCcv() %></td> <td><%=yy.getSize() %></td> </tr>
+
+<%} %>
+</table>
+
+
+</center>
+</body>
+</html>
+
+************************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<form action="buyall">
+<input type="submit" value="Show All Purchases">
+</form>
+</center>
+</body>
+</html>
+
+********************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h2>Buy Gym Shoes</h2>
+<h3>Product Details </h3>
+<h3>Puma Shoes</h3>
+Category - Gym shoes <br> 
+Descrition - Puma Shoes <br>
+Price - Rs.1000 <br>
+Model No. - 4 <br> 
+
+
+
+<form action="runningbuy">
+<h3>Enter Shipping Address</h3> <br>
+Enter Name <input type="text" name="name"> <br> <br>
+Address <input type="text" name="address"> <br> <br>
+Shoes Model 
+<select name="model">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select> 
+Status <input type="text" name="status">  <br> <br>
+<h3>Enter Card Details</h3> <br> 
+Card Holder's Name <input type="text" name="cardname"> <br> <br>
+Amount <input type="text" name="ammount"> <br> <br>
+Card Number <input type="text" name="cardnumber"> <br> <br>
+Enter CCV <input type="text" name="ccv"> <br> <br>
+Select Size<select name="size">
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+</select>
+<input type="submit">
+</form>
+</center>
+</body>
+</html> 
+
+*************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h2>Buy Running Shoes</h2>
+<h3>Product Details </h3>
+<h3>Puma Shoes</h3>
+Category - Running shoes <br> 
+Descrition - Puma Shoes <br>
+Price - Rs.1000 <br>
+Model No. - 1 <br> 
+
+
+
+<form action="runningbuy">
+<h3>Enter Shipping Address</h3> <br>
+Enter Name <input type="text" name="name" required> <br> <br>
+Address <input type="text" name="address" required> <br> <br>
+
+Shoes Model 
+<select name="model" required>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select> 
+
+Status <input type="text" name="status" required>  <br> <br>
+<h3>Enter Card Details</h3> <br> 
+Card Holder's Name <input type="text" name="cardname" required> <br> <br>
+Amount <input type="text" name="ammount" required> <br> <br>
+Card Number <input type="text" name="cardnumber" required> <br> <br>
+Enter CCV <input type="text" name="ccv" required> <br> <br>
+Select Size<select name="size" required>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+</select>
+<input type="submit">
+</form>
+</center>
+</body>
+</html> 
+
+*****************************************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h2>Buy Stylish Shoes</h2>
+<h3>Product Details </h3>
+<h3>Puma Shoes</h3>
+Category - Stylish shoes <br> 
+Descrition - Puma Shoes <br>
+Price - Rs.1000 <br>
+Model No. - 3 <br> 
+
+
+
+<form action="runningbuy">
+<h3>Enter Shipping Address</h3> <br>
+Enter Name <input type="text" name="name" required> <br> <br>
+Address <input type="text" name="address" required> <br> <br>
+
+Shoes Model 
+<select name="model">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select> 
+
+Status <input type="text" name="status">  <br> <br>
+<h3>Enter Card Details</h3> <br> 
+Card Holder's Name <input type="text" name="cardname"> <br> <br>
+Amount <input type="text" name="ammount"> <br> <br>
+Card Number <input type="text" name="cardnumber"> <br> <br>
+Enter CCV <input type="text" name="ccv"> <br> <br>
+Select Size<select name="size">
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+</select>
+<input type="submit">
+</form>
+</center>
+</body>
+</html> 
+
+**********************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Buy</title>
+</head>
+<body>
+<center>
+<h1>Successfully ordered your product</h1>
+<h2>Your Product reached your home within 7 days..</h2>
+<h3>Thank you for the Shoping</h3>
+<a href="Home.jsp">Click Here To Buy Again</a>
+</center>
+</body>
+</html>
+
+************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h2>Buy Walking Shoes</h2>
+<h3>Product Details </h3>
+<h3>Puma Shoes</h3>
+Category - Walking shoes <br> 
+Descrition - Puma Shoes <br>
+Price - Rs.1000 <br>
+Model No. - 2 <br> 
+
+
+
+<form action="running">
+<h3>Enter Shipping Address</h3> <br>
+Enter Name <input type="text" name="name" required> <br> <br>
+Address <input type="text" name="address" required> <br> <br>
+
+Shoes Model 
+<select name="model" required>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select> 
+
+Status <input type="text" name="status" required>  <br> <br>
+<h3>Enter Card Details</h3> <br> 
+Card Holder's Name <input type="text" name="cardname" required> <br> <br>
+Amount <input type="text" name="ammount" required> <br> <br>
+Card Number <input type="text" name="cardnumber" required> <br> <br>
+Enter CCV <input type="text" name="ccv" required> <br> <br>
+Select Size<select name="size" required>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+</select>
+<input type="submit">
+</form>
+</center>
+</body>
+</html> 
+
+*****************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="#FAD2B7">
+<center>
+<h1>Delete Your Product Category</h1>
+<form action="deleteByid">
+Enter Id <input type="text" name="id" required>
+<input type="submit" value="Delete ID">
+</form>
+</center>
+</body>
+</html> 
+
+*****************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+    <%@ page import="java.util.*" %>
+    <%@ page import="com.example.demo.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<%
+List<product> p=(List<product>)request.getAttribute("list");
+%>
+
+<table border="1">
+<tr><th>Product ID</th><th>product Name</th><th>Product Price</th><th>Category</th><th>Product model</th></tr>
+<%for(product pp:p){ %>
+<tr> <td><%=pp.getId() %></td>  <td><%=pp.getName() %></td>   <td><%=pp.getPrice() %></td><td><%=pp.getCategory() %></td><td><%=pp.getModel() %></td> </tr>
+
+<%} %>
+</table>
+
+<a href="insert.jsp">Add Another Product</a>
+</center>
+</body>
+</html>
+
+***************************************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+    <%@ page import="java.util.*" %>
+    <%@ page import="com.example.demo.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="#E6F9DE">
+<center>
+<%
+List<category> c=(List<category>)request.getAttribute("list");
+%>
+
+<table border="1">
+<tr><th>Category ID</th><th>Category Name</th><th>Edit</th><th>Delete</th></tr>
+<%for(category cc:c){ %>
+<tr> <td><%=cc.getId() %></td>  <td><%=cc.getPname() %></td> <td><a href="updateCategory.jsp">Edit</a></td><td><a href="deleteCategory.jsp">Delete</a></td> </tr>
+
+<%} %>
+</table>
+
+<a href="addCategory.jsp">Add Another Product Category</a>
+</center>
+</body>
+</html>
+
+***************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>Login 'Successfull'</h1>
+<%  
+String suser = (String)session.getAttribute("suser");
+%>
+
+<h2>Welcome to <%=suser  %></h2> <br>
+<form action="logout">
+<input type="submit" value="logout">
+</form>
+<br><br>
+<a href="Home.jsp">Click Here to Goto to Home Page</a>
+</center>
+</body>
+</html> 
+
+**********************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="forget">
+Username <input type="text" name="suser" required><br> <br>
+Password <input type="password" name="spassword" required><br> <br>
+Email <input type="email" name="semail" required> <br> <br>
+<input type="submit" value="Forget">
+</form>
+</body>
+</html> 
+
+**************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h4>Gym Shoes</h4>
+
+<a href="buygymshoes.jsp">Buy Now</a>
+</center>
+</body>
+</html>
+
+**************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login page of Users</title>
+</head>
+<body>
+<center>
+<h1>User Login Pannel</h1>
+<form action="login">
+Username <input type="text" name="suser" required><br> <br>
+Password<input type="password" name="spassword" required><br> <br>
+<input type="submit" value="login">
+<a href="forgetpassword.jsp">Forget Password</a>
+</form>
+<h3>if login failed , register on the below link</h3>
+<a href="register.jsp">register here..</a>
+</center>
+</body>
+</html> 
+
+*************************************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>Add Product For Customers</h1>
+<form action="insert">
+Product name <input type="text" name="name" required> <br><br>
+Product Price <input type="text" name="price" required>  <br><br>
+
+Product Model <input type="text" name="model" required> <br><br>
+Product Category
+<select name="category">
+<option>Running Shoes</option>
+<option>Walking Shoes</option>
+<option>Gym Shoes</option>
+<option>Stylish </option>
+
+</select>
+ <br><br>
+<input type="submit">
+
+</form>
+</center>
+</body>
+</html> 
+
+**********************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<center>
+
+<h1>Category Inserted</h1>
+
+<form action="catall">
+<input type="submit" value="View Category">
+
+</form>
+
+</center>
+</body>
+</html> 
+
+**************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>User Registration</h1>
+<form action="register"> 
+username<input type="text" name="suser" required><br>
+password<input type="password"  name="spassword" required><br>
+email id<input type="email" name="semail"><br>
+<input type="submit">
+
+</form>
+</center>
+</body>
+</html>   
+
+***********************************
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h3>Running Shoes</h3>
+
+<h4>Puma Shoes</h4> <br>
+<a href="buyrunnningshoes.jsp">Buy Now</a>
+
+</center>
+</body>
+</html> 
+
+*********************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<form action="getall">
+<input type="submit" value="View All Product">
+</form>
+</center>
+</body>
+</html> 
+
+************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h4>Stylish Shoes</h4>
+
+<a href="buystylishshoes.jsp">Buy Now</a>
+</center>
+</body>
+</html> 
+
+***************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="#FAD2B7">
+<center>
+<h1>Enter Category Id and Name For Update</h1>
+<form action="update">
+Category Id <input type="text" name="id" required> <br><br>
+Category Name <input type="text" name="pname" required> <br><br>
+<input type="submit"> 
+</form>
+</center>
+</body>
+</html> 
+
+*****************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<form action="alluser">
+<input type="submit" value="Get All Users">
+</form>
+</center>
+</body>
+</html>
+
+*************************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>Wrong Password..Please try again later</h1>
+</center>
+</body>
+</html>
+
+**************************************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h4>Walking Shoes</h4>
+
+<a href="buywalkingshoes.jsp">Buy Now</a>
+</center>
+</body>
+</html> 
+
+******************************
+
+POM.XML
+*******
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>sportyshoes</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>sportyshoes</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-jasper</artifactId>
+    <version>9.0.63</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.6</version>
+</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	        </dependencies>
+
+	       <build>
+		<plugins>
+		 <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+
+APPLICATION PROPERTIES 
+**********************
+
+
+##view resolver
+#spring.mvc.view.prefix=/pages/
+#spring.mvc.view.suffix=.jsp
+
+#datasource
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/shop
+spring.datasource.username=root
+spring.datasource.password=Ganga@1234
+
+
+server.port=8083
+
+
+#jpa-hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.show-sql=true
